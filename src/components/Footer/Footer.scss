@@ -1,0 +1,31 @@
+.footer {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+
+  background: #000000; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #434343,
+    #333333
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #333333);
+
+  &__container {
+    text-align: center;
+  }
+
+  &__text {
+    p {
+      margin-bottom: 12px;
+
+      font-size: 18px;
+      font-weight: 400;
+      color: #fff;
+
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
