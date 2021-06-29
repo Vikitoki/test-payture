@@ -29,15 +29,16 @@ export const Input: FC<InputProps> = ({
       {mask ? (
         <Field name={name}>
           {({ meta, field }: any) => {
+            console.log(meta);
             return (
               <>
                 <InputMask
+                  {...rest}
+                  {...field}
                   id={name}
                   mask={mask}
                   maskChar={maskChar}
                   className="form__input"
-                  {...rest}
-                  {...field}
                 />
                 {meta.touched && meta.error ? (
                   <span className="form__error">{meta.error}</span>

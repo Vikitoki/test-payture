@@ -3,47 +3,43 @@ import { FC } from "react";
 import { Form, Formik } from "formik";
 import { FormControl } from "../UI/FormControl";
 import * as Yup from "yup";
-
-interface FormHomePageContainerState {
-  userName: string;
-  userEmail: string;
-  userCard: string;
-  userCardDate: string;
-  userCardCVC: string;
-}
+import { FormHomePageContainerState } from "../../../types/forms";
+import { useDispatch } from "react-redux";
+import { getNewUserPayment } from "../../../services/rest/userPaymentsActions";
+import { validationNubmerField } from "../../../services/helpers/forms";
 
 export const FormHomePageContainer: FC = () => {
+  const dispatch = useDispatch();
+
   const initialValues: FormHomePageContainerState = {
     userName: "",
     userEmail: "",
+    userSum: "",
     userCard: "",
     userCardDate: "",
     userCardCVC: "",
   };
 
   const validationSchema = Yup.object({
-    // userName: Yup.string().required("Поле обязательно для заполнения"),
-    // userEmail: Yup.string()
-    //   .email("Неверный формат email")
-    //   .required("Поле обязательно для заполнения"),
-    // userCard: Yup.string()
-    //   .min(16, "Минимальная длина номера карты 16 чисел")
-    //   .required("Поле обязательно для заполнения")
-    //   .test(
-    //     "no-includes(_)",
-    //     "Это поле не может равняться нулю",
-    //     (value) => String(value) !== "_"
-    //   ),
-    // // .matches(
-    // //   /^[0-9,_]+$/,
-    // //   "Это поле не должно содержать букв или других символов"
-    // // )
-    // userCardDate: Yup.string().required("Поле обязательно для заполнения"),
-    // userCardCVC: Yup.string().required("Поле обязательно для заполнения"),
+    userName: Yup.string().required("Поле обязательно для заполнения"),
+    userEmail: Yup.string()
+      .email("Неверный формат email")
+      .required("Поле обязательно для заполнения"),
+    userCard: Yup.string()
+      .min(16, "Минимальная длина номера карты 16 чисел")
+      .required("Поле обязательно для заполнения")
+      .test(
+        "no-includes(*)",
+        "Это поле не должно иметь пропущенных цифр",
+        (value) => String(value) !== "*"
+      ),
+    userSum: validationNubmerField(),
+    userCardDate: validationNubmerField(),
+    userCardCVC: validationNubmerField(),
   });
 
   const onSubmit = (values: FormHomePageContainerState) => {
-    console.log(values);
+    dispatch(getNewUserPayment(values));
   };
 
   return (
@@ -75,6 +71,12 @@ export const FormHomePageContainer: FC = () => {
                 type="text"
                 mask="**** **** **** ****"
                 maskChar="*"
+              />
+              <FormControl
+                control="input"
+                labelText="Введите сумму заказа"
+                name="userSum"
+                type="text"
               />
               <div className="form__block form__block_double">
                 <FormControl
