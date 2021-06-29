@@ -6,10 +6,30 @@ import * as Yup from "yup";
 import { FormHomePageContainerState } from "../../../types/forms";
 import { useDispatch } from "react-redux";
 import { getNewUserPayment } from "../../../services/rest/userPaymentsActions";
-import { validationNubmerField } from "../../../services/helpers/forms";
+import {
+  validationCardField,
+  validationEmailField,
+  validationNubmerField,
+  validationStringField,
+} from "../../../services/helpers/forms";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import { useEffect } from "react";
+import { removeSuccessStatusPayment } from "../../../store/usersPaymenst/action-creators";
 
 export const FormHomePageContainer: FC = () => {
   const dispatch = useDispatch();
+  const { error, loading, successPayment } = useTypedSelector(
+    (state) => state.userPayments
+  );
+
+  useEffect(() => {
+    if (successPayment) {
+      console.log("set");
+      setTimeout(() => {
+        dispatch(removeSuccessStatusPayment());
+      }, 3000);
+    }
+  }, [successPayment, dispatch]);
 
   const initialValues: FormHomePageContainerState = {
     userName: "",
@@ -21,25 +41,17 @@ export const FormHomePageContainer: FC = () => {
   };
 
   const validationSchema = Yup.object({
-    userName: Yup.string().required("Поле обязательно для заполнения"),
-    userEmail: Yup.string()
-      .email("Неверный формат email")
-      .required("Поле обязательно для заполнения"),
-    userCard: Yup.string()
-      .min(16, "Минимальная длина номера карты 16 чисел")
-      .required("Поле обязательно для заполнения")
-      .test(
-        "no-includes(*)",
-        "Это поле не должно иметь пропущенных цифр",
-        (value) => !String(value).includes("*")
-      ),
+    userName: validationStringField(),
+    userEmail: validationEmailField(),
+    userCard: validationCardField(),
     userSum: validationNubmerField(),
     userCardDate: validationNubmerField(),
     userCardCVC: validationNubmerField(),
   });
 
-  const onSubmit = (values: FormHomePageContainerState) => {
+  const onSubmit = (values: FormHomePageContainerState, props: any) => {
     dispatch(getNewUserPayment(values));
+    props.resetForm();
   };
 
   return (
@@ -100,6 +112,15 @@ export const FormHomePageContainer: FC = () => {
                 Далее
               </button>
             </div>
+            {loading ? (
+              <span className="form__status">
+                Подождите несколько секунд...
+              </span>
+            ) : error ? (
+              <span className="form__status">{error}</span>
+            ) : successPayment ? (
+              <span className="form__status">Ваша оплата прошла успешно!</span>
+            ) : null}
           </Form>
         );
       }}

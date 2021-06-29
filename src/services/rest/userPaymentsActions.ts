@@ -25,6 +25,7 @@ export const getUserPaymentList = () => {
       const data: IUsersList[] = await response.json();
 
       dispatch(fetchUserPaymentSuccess(data));
+      localStorage.setItem("usersPaymentList", JSON.stringify(data));
     } catch (error) {
       dispatch(fetchUserPaymentFailure(error.message));
     }
@@ -44,6 +45,7 @@ export const getNewUserPayment = (values: FormHomePageContainerState) => {
         id: String(Math.random()),
         date: `${new Date().toLocaleDateString()} в ${new Date().toLocaleTimeString()}`,
       };
+
       const response = await fetch(`http://localhost:3004/users`, {
         method: "POST",
         body: JSON.stringify(newPayment),
@@ -61,9 +63,7 @@ export const getNewUserPayment = (values: FormHomePageContainerState) => {
       dispatch(addNewUserPayment(newPayment));
       localStorage.setItem(
         "usersPaymentList",
-        JSON.stringify([
-          ...getState().userPayments.usersPaymentList,
-        ])
+        JSON.stringify([...getState().userPayments.usersPaymentList])
       );
     } catch (error) {
       dispatch(fetchUserPaymentFailure(error.message));

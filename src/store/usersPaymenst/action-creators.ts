@@ -4,6 +4,7 @@ import {
   FETCH_USER_PAYMENT_LIST_FAILURE,
   FETCH_USER_PAYMENT_LIST_REQUEST,
   FETCH_USER_PAYMENT_LIST_SUCCESS,
+  REMOVE_SUCCESS_STATUS_PAYMENT,
 } from "./action-variables";
 
 export const fetchUserPaymentRequest = (): UserPaymentsActions => ({
@@ -29,4 +30,8 @@ export const addNewUserPayment = (
 ): UserPaymentsActions => ({
   type: ADD_NEW_USER_PAYMENT,
   payload,
+});
+
+export const removeSuccessStatusPayment = (): UserPaymentsActions => ({
+  type: REMOVE_SUCCESS_STATUS_PAYMENT,
 });

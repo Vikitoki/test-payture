@@ -3,6 +3,7 @@ import {
   FETCH_USER_PAYMENT_LIST_FAILURE,
   FETCH_USER_PAYMENT_LIST_REQUEST,
   FETCH_USER_PAYMENT_LIST_SUCCESS,
+  REMOVE_SUCCESS_STATUS_PAYMENT,
 } from "../store/usersPaymenst/action-variables";
 import { FormHomePageContainerState } from "./forms";
 
@@ -15,6 +16,7 @@ export interface UserPaymentsState {
   usersPaymentList: IUsersList[];
   loading: boolean;
   error: string;
+  successPayment: boolean;
 }
 
 interface FetchUserPaymentRequestAction {
@@ -36,8 +38,13 @@ interface AddNewUserPaymentAction {
   payload: IUsersList;
 }
 
+interface RemoveSuccessStatusPaymentAction {
+  type: typeof REMOVE_SUCCESS_STATUS_PAYMENT;
+}
+
 export type UserPaymentsActions =
   | FetchUserPaymentRequestAction
   | FetchUserPaymentSuccessAction
   | FetchUserPaymentFailureAction
-  | AddNewUserPaymentAction;
+  | AddNewUserPaymentAction
+  | RemoveSuccessStatusPaymentAction;

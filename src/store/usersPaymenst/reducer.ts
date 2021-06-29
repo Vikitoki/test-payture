@@ -7,12 +7,14 @@ import {
   FETCH_USER_PAYMENT_LIST_REQUEST,
   FETCH_USER_PAYMENT_LIST_SUCCESS,
   ADD_NEW_USER_PAYMENT,
+  REMOVE_SUCCESS_STATUS_PAYMENT,
 } from "./action-variables";
 
 const initialState: UserPaymentsState = {
   usersPaymentList: [],
   loading: false,
   error: "",
+  successPayment: false,
 };
 
 export const userPaymentsReducer = (
@@ -44,7 +46,10 @@ export const userPaymentsReducer = (
         loading: false,
         error: "",
         usersPaymentList: [...state.usersPaymentList, action.payload],
+        successPayment: true,
       };
+    case REMOVE_SUCCESS_STATUS_PAYMENT:
+      return { ...state, successPayment: false };
     default:
       return state;
   }

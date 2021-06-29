@@ -34,7 +34,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server --watch db.json --port 3004"
+    "server": "json-server --watch db.json --port 3004",
+    "dev": "concurrently \"json-server --watch db.json --port 3004\" \"react-scripts start\""
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +56,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-input-mask": "^3.0.0"
+    "@types/react-input-mask": "^3.0.0",
+    "concurrently": "^6.2.0"
   }
 }

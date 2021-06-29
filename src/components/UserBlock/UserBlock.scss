@@ -1,0 +1,34 @@
+.user-block {
+  display: block;
+  width: 100%;
+  padding: 15px;
+
+  border: 3px solid #fff;
+
+  background: #396afc; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #2948ff,
+    #396afc
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #2948ff,
+    #396afc
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  &__list {
+    > li {
+      display: block;
+      margin: 0px 0px 15px 0px;
+
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+
+      &:last-child {
+        margin-right: 0px;
+      }
+    }
+  }
+}
