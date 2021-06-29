@@ -39,7 +39,6 @@ export const getNewUserPayment = (values: FormHomePageContainerState) => {
     try {
       dispatch(fetchUserPaymentRequest());
 
-      console.log(getState());
       const newPayment = {
         ...values,
         id: String(Math.random()),

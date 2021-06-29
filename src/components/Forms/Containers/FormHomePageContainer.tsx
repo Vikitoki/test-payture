@@ -31,7 +31,7 @@ export const FormHomePageContainer: FC = () => {
       .test(
         "no-includes(*)",
         "Это поле не должно иметь пропущенных цифр",
-        (value) => String(value) !== "*"
+        (value) => !String(value).includes("*")
       ),
     userSum: validationNubmerField(),
     userCardDate: validationNubmerField(),
@@ -84,21 +84,19 @@ export const FormHomePageContainer: FC = () => {
                   labelText="Введите время действия карты"
                   name="userCardDate"
                   type="text"
+                  mask="**/**"
                 />
                 <FormControl
                   control="input"
                   labelText="Введите код CVC"
                   name="userCardCVC"
-                  type="password"
+                  type="text"
+                  mask="***"
                 />
               </div>
             </div>
             <div className="form__btns">
-              <button
-                disabled={!formik.isValid}
-                type="submit"
-                className="btn btn_white-outline"
-              >
+              <button type="submit" className="btn btn_white-outline">
                 Далее
               </button>
             </div>

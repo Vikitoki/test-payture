@@ -29,7 +29,6 @@ export const Input: FC<InputProps> = ({
       {mask ? (
         <Field name={name}>
           {({ meta, field }: any) => {
-            console.log(meta);
             return (
               <>
                 <InputMask
