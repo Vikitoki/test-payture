@@ -1,0 +1,42 @@
+@import "../default/variables.scss";
+
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 12px 45px;
+
+  text-align: center;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+
+  background: none;
+  border: none;
+  border-radius: 25px;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &_white-outline {
+    color: #fff;
+
+    border: 3px solid #fff;
+
+    @media (min-width: $md2 + px) {
+      &:hover {
+        color: rgb(32, 32, 32);
+        background-color: rgb(179, 179, 179);
+      }
+    }
+
+    &:active {
+      background-color: rgb(158, 158, 158);
+    }
+
+    &:disabled {
+      background-color: rgb(199, 33, 33);
+
+      cursor: not-allowed;
+    }
+  }
+}
